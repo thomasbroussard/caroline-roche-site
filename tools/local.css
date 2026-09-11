@@ -8,5 +8,14 @@
 }
 .cr-slideshow .cr-slide.is-active { opacity: 1; }
 
+/* Menu principal. Wix calcule en JS la largeur de chaque entrée pour occuper toute la barre
+   (data-stretch-buttons-to-menu-width) et centre les libellés : on obtient le même rendu en flex,
+   l'espace libre étant réparti à parts égales entre les entrées. */
+#DrpDwnMn0-5s3itemsContainer { display: flex; }
+#DrpDwnMn0-5s3itemsContainer > .CUYeWp { flex: 1 1 auto; text-align: center; }
+#DrpDwnMn0-5s3itemsContainer > .CUYeWp > .qMvpu5 {
+  display: flex; align-items: center; justify-content: center;
+}
+
 /* Le menu "More" est un repli calculé par Wix quand les entrées ne tiennent pas : inutile ici. */
 #DrpDwnMn0-5s3__more__ { display: none !important; }
