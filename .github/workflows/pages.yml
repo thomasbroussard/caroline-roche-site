@@ -1,0 +1,39 @@
+# Déploie www/ sur GitHub Pages à chaque push sur main.
+# Le site est reconstruit hors ligne (les ressources sont dans www/assets/) avec le préfixe /<dépôt>/,
+# car un dépôt de projet est servi sous https://<compte>.github.io/<dépôt>/.
+# Avec un domaine personnalisé (fichier CNAME), remplacer --base par "/".
+name: Déployer sur GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Construire le site avec le préfixe du dépôt
+        run: node tools/build.mjs --offline --base="/${{ github.event.repository.name }}/"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: www
+      - id: deployment
+        uses: actions/deploy-pages@v4

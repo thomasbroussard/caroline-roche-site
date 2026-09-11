@@ -1,0 +1,12 @@
+/* Compléments locaux : remplacent ce que le runtime Wix faisait en JS. */
+
+/* Diaporama d'accueil (remplace l'iframe StripSlideshow) */
+.cr-slideshow { position: relative; overflow: hidden; }
+.cr-slideshow .cr-slide {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 1.2s ease-in-out;
+}
+.cr-slideshow .cr-slide.is-active { opacity: 1; }
+
+/* Le menu "More" est un repli calculé par Wix quand les entrées ne tiennent pas : inutile ici. */
+#DrpDwnMn0-5s3__more__ { display: none !important; }
